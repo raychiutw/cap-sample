@@ -5,6 +5,7 @@
 CAP 是一個EventBus，同時也是一個在微服務或者SOA系統中解決分佈式事務問題的一個框架。它有助於創建可擴展，可靠並且易於更改的微服務系統。
 
 
+![架構圖](/imgs/2.png)
 
 ## 安裝套件
 
@@ -201,11 +202,12 @@ public class AppConstants
 
 ## 非 CAP Publish To CAP Consumer => 需增加 rabbitmq header
 
-
 請在 message header 中加入 `cap-msg-id` `cap-msg-name`
 
 - cap-msg-id: 不重複編號, cap預設使用 Snowflake Id, 也可以用 GUID
 - cap-msg-name: 要接收處理的 topic name (在 rabbitmq 稱為 route Key)
+
+![欄位說明](/imgs/1.png)
 
 ```csharp
     //Main entry point to the RabbitMQ .NET AMQP client
@@ -230,3 +232,15 @@ public class AppConstants
     byte[] messagebuffer = Encoding.Default.GetBytes("Message to Headers Exchange 'format=pdf' ");
     model.BasicPublish("headers.exchange", "", properties, messagebuffer);
 ```
+
+## CAP Dashboard
+
+可查看訊息發送接收狀態,並手動執行重送
+
+## RabbitMq 後台重送
+
+> header 要加上 `cap-msg-id` `cap-msg-name`
+
+參考附圖可以後台重送
+
+![後台發送](/imgs/3.png)
