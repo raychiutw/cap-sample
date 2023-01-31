@@ -1,8 +1,6 @@
 # cap-sample
 
-## Getting start
-
-### 安裝套件
+## 安裝套件
 
 安裝CAP套件
 
@@ -34,7 +32,7 @@ PM> Install-Package DotNetCore.CAP.MongoDB
 
 使用 SqlServer 可以使用 `UseEntityFramework`, 可使用 transaction 確保商業邏輯與訊息一致
 
-### 程式設定
+## 範例程式
 
 > Program.cs
 
@@ -179,4 +177,31 @@ public class AppConstants
     public const string GoifNoticeTopic = "topic.goif.notice";
     public const string EdgeDateTimeTopic = "topic.edge.datetime";
 }
+```
+
+除了直接強型別轉換, 也可以接收訊息直接處理 JsonElement 物件
+
+```csharp
+    [CapSubscribe(AppConstants.GoifNoticeTopic, Group = AppConstants.QueueName)]
+    public async Task DeductProductQty(JsonElement param, CancellationToken cancellationToken)
+    {
+        var order = param.Deserialize<Order>();
+
+        await Task.Yield();
+    }
+```
+
+## CAP Pubslish To 非 CAP Consumers => 可以
+
+## 非 CAP Publish To CAP Consumer => 需增加 rabbitmq header
+
+```csharp
+IModel model = connection.CreateModel();
+model.ExchangeDeclare(_headersExchange, ExchangeType.Headers, true);
+model.QueueDeclare(_headersQueueOne, true, false, false, null);
+Dictionary<string,object> bindingOneHeaders = new Dictionary<string,object>();
+bindingOneHeaders.Add("x-match", "all");
+bindingOneHeaders.Add("category", "animal");
+bindingOneHeaders.Add("type", "mammal");
+model.QueueBind(_headersQueueOne, _headersExchange, "", bindingOneHeaders);
 ```
