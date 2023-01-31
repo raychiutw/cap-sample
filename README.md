@@ -7,6 +7,10 @@ CAP 是一個EventBus，同時也是一個在微服務或者SOA系統中解決�
 
 ![架構圖](/imgs/2.png)
 
+[Github](https://github.com/dotnetcore/CAP/blob/master/README.zh-cn.md)
+
+[文件說明](https://cap.dotnetcore.xyz/user-guide/zh/getting-started/quick-start/)
+
 ## 安裝套件
 
 安裝CAP套件
