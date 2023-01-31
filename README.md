@@ -195,13 +195,32 @@ public class AppConstants
 
 ## 非 CAP Publish To CAP Consumer => 需增加 rabbitmq header
 
+
+請在 message header 中加入 `cap-msg-id` `cap-msg-name`
+
+- cap-msg-id: 不重複編號, cap預設使用 Snowflake Id, 也可以用 GUID
+- cap-msg-name: 要接收處理的 topic name (在 rabbitmq 稱為 route Key)
+
 ```csharp
-IModel model = connection.CreateModel();
-model.ExchangeDeclare(_headersExchange, ExchangeType.Headers, true);
-model.QueueDeclare(_headersQueueOne, true, false, false, null);
-Dictionary<string,object> bindingOneHeaders = new Dictionary<string,object>();
-bindingOneHeaders.Add("x-match", "all");
-bindingOneHeaders.Add("category", "animal");
-bindingOneHeaders.Add("type", "mammal");
-model.QueueBind(_headersQueueOne, _headersExchange, "", bindingOneHeaders);
+    //Main entry point to the RabbitMQ .NET AMQP client
+    var connectionFactory = new ConnectionFactory()
+    {
+        UserName = "guest",
+        Password = "guest",
+        HostName = "localhost"
+    };
+
+    var connection = connectionFactory.CreateConnection();
+    var model = connection.CreateModel();
+    var properties = model.CreateBasicProperties();
+    properties.Persistent = false;
+
+    // Header 處理
+    Dictionary<string, object> dictionary = new Dictionary<string, object>();
+    dictionary.Add("cap-msg-id", Guid.NewId().ToString());
+    dictionary.Add("cap-msg-name", "topic name(route key)");
+    properties.Headers = dictionary;
+
+    byte[] messagebuffer = Encoding.Default.GetBytes("Message to Headers Exchange 'format=pdf' ");
+    model.BasicPublish("headers.exchange", "", properties, messagebuffer);
 ```
