@@ -238,9 +238,12 @@ public class AppConstants
 預設路徑 :http://localhost:xxx/cap, 
 
 可以修改預設路徑
+
 ```csharp
 x.UseDashboard(opt =>{ opt.MatchPath="/mycap"; })
 ```
+
+![D](/imgs/4.png)
 
 可查看訊息發送接收狀態,並手動執行重送
 
