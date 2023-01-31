@@ -32,6 +32,8 @@ PM> Install-Package DotNetCore.CAP.PostgreSql
 PM> Install-Package DotNetCore.CAP.MongoDB
 ```
 
+使用 SqlServer 可以使用 `UseEntityFramework`, 可使用 transaction 確保商業邏輯與訊息一致
+
 ### 程式設定
 
 > Program.cs
@@ -43,6 +45,7 @@ builder.Services.AddCap(x =>
             x.TopicNamePrefix = "cap.pmp.edge";
             x.GroupNamePrefix = "cap.pmp.edge";
 
+            // 使用 EF Core DbContext
             x.UseEntityFramework<CapDbContext>();
 
             x.UseRabbitMQ(config =>
@@ -85,8 +88,7 @@ builder.Services.AddCap(x =>
         _capBus = capPublisher;
     }
 
-    //不使用事务
-    [HttpPost("without/transaction")]
+    [HttpPost("datetime")]
     public IActionResult WithoutTransaction()
     {
         _capBus.Publish("xxx.services.show.time", DateTime.Now);
@@ -101,4 +103,80 @@ builder.Services.AddCap(x =>
 
         return Ok();
     }
+    
+    //EntityFramework 中使用 transaction，自動 commit
+    [HttpPost("ef/transaction")]
+    public IActionResult EntityFrameworkWithTransaction([FromServices] CapDbContext dbContext)
+    {
+        using (var trans = dbContext.Database.BeginTransaction(_capBus, autoCommit: true))
+        {            
+            _capBus.Publish(AppConstants.EdgeDateTimeTopic, DateTime.Now);
+        }
+        return Ok();
+    }
+```
+
+> 接收訊息 - 使用 Controller Attribute
+
+```csharp
+    [NonAction]
+    [CapSubscribe(AppConstants.EdgeDateTimeTopic, Group = AppConstants.QueueName)]
+    public void CheckReceivedMessage(DateTime datetime)
+    {
+        Console.WriteLine(datetime);
+    }
+```
+
+> 接收訊息 - 一般類別: 繼承 `ICapSubscribe`
+
+>> 定義介面
+
+```csharp
+public interface ISubscriberService
+{
+    Task DeductProductQty(Order order, CancellationToken cancellationToken);
+}
+
+public class SubscriberService : ISubscriberService, ICapSubscribe
+{
+    [CapSubscribe(AppConstants.GoifNoticeTopic, Group = AppConstants.QueueName)]
+    public async Task DeductProductQty(Order order, CancellationToken cancellationToken)
+    {
+        Console.WriteLine("1:" + order);
+
+        await Task.Yield();
+    }
+}
+```
+
+>> 實作
+
+```csharp
+public class SubscriberService : ISubscriberService, ICapSubscribe
+{
+    [CapSubscribe(AppConstants.GoifNoticeTopic, Group = AppConstants.QueueName)]
+    public async Task DeductProductQty(Order order, CancellationToken cancellationToken)
+    {
+        Console.WriteLine("1:" + order);
+
+        await Task.Yield();
+    }
+}
+```
+
+>> 注入設定
+
+```csharp
+services.AddScoped<ISubscriberService, SubscriberService>();
+```
+
+>> 常數類別
+
+```csharp
+public class AppConstants
+{
+    public const string QueueName = "queue";
+    public const string GoifNoticeTopic = "topic.goif.notice";
+    public const string EdgeDateTimeTopic = "topic.edge.datetime";
+}
 ```
