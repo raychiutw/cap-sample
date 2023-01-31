@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>28a92a4a-5c16-41a5-83cb-63be662b584d</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DotNetCore.CAP" Version="6.2.1" />
+    <PackageReference Include="DotNetCore.CAP.Dashboard" Version="6.2.1" />
+    <PackageReference Include="DotNetCore.CAP.InMemoryStorage" Version="6.2.1" />
+    <PackageReference Include="DotNetCore.CAP.RabbitMQ" Version="6.2.1" />
+    <PackageReference Include="DotNetCore.CAP.SqlServer" Version="6.2.1" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.2" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PMP.EdgeService.Application\PMP.EdgeService.Application.csproj" />
+    <ProjectReference Include="..\PMP.EdgeService.Persistence\PMP.EdgeService.Persistence.csproj" />
+  </ItemGroup>
+
+</Project>

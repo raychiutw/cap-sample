@@ -1,0 +1,64 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33103.184
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PMP.EdgeService.API", "PMP.EdgeService.API\PMP.EdgeService.API.csproj", "{53A83673-8EFF-4144-855D-F87E2908CF01}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "方案項目", "方案項目", "{9DEA7772-DDB3-41EF-88E9-9239C24238A5}"
+	ProjectSection(SolutionItems) = preProject
+		CodeMaid.config = CodeMaid.config
+		nuget.config = nuget.config
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PMP.EdgeService.Persistence", "PMP.EdgeService.Persistence\PMP.EdgeService.Persistence.csproj", "{F0A6D3E8-F12D-4A29-ADAF-0741114B5C98}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PMP.EdgeService.Application", "PMP.EdgeService.Application\PMP.EdgeService.Application.csproj", "{650D5D25-92D1-4AE3-A770-A0456B4CFE0E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{0236A051-AFF3-469D-A8A5-827877C13333}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PMP.EdgeService.Common", "PMP.EdgeService.Common\PMP.EdgeService.Common.csproj", "{32914784-A8AB-4C1E-B889-6E2BAD1892A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PMP.EdgeService.Domain", "PMP.EdgeService.Domain\PMP.EdgeService.Domain.csproj", "{D669ED65-77AE-47C6-9344-00A2B95BCFBC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{53A83673-8EFF-4144-855D-F87E2908CF01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53A83673-8EFF-4144-855D-F87E2908CF01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53A83673-8EFF-4144-855D-F87E2908CF01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53A83673-8EFF-4144-855D-F87E2908CF01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0A6D3E8-F12D-4A29-ADAF-0741114B5C98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0A6D3E8-F12D-4A29-ADAF-0741114B5C98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0A6D3E8-F12D-4A29-ADAF-0741114B5C98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0A6D3E8-F12D-4A29-ADAF-0741114B5C98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{650D5D25-92D1-4AE3-A770-A0456B4CFE0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{650D5D25-92D1-4AE3-A770-A0456B4CFE0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{650D5D25-92D1-4AE3-A770-A0456B4CFE0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{650D5D25-92D1-4AE3-A770-A0456B4CFE0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32914784-A8AB-4C1E-B889-6E2BAD1892A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32914784-A8AB-4C1E-B889-6E2BAD1892A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32914784-A8AB-4C1E-B889-6E2BAD1892A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32914784-A8AB-4C1E-B889-6E2BAD1892A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D669ED65-77AE-47C6-9344-00A2B95BCFBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D669ED65-77AE-47C6-9344-00A2B95BCFBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D669ED65-77AE-47C6-9344-00A2B95BCFBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D669ED65-77AE-47C6-9344-00A2B95BCFBC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{53A83673-8EFF-4144-855D-F87E2908CF01} = {0236A051-AFF3-469D-A8A5-827877C13333}
+		{F0A6D3E8-F12D-4A29-ADAF-0741114B5C98} = {0236A051-AFF3-469D-A8A5-827877C13333}
+		{650D5D25-92D1-4AE3-A770-A0456B4CFE0E} = {0236A051-AFF3-469D-A8A5-827877C13333}
+		{32914784-A8AB-4C1E-B889-6E2BAD1892A4} = {0236A051-AFF3-469D-A8A5-827877C13333}
+		{D669ED65-77AE-47C6-9344-00A2B95BCFBC} = {0236A051-AFF3-469D-A8A5-827877C13333}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F3D8BCC7-DCF7-4EDA-9A20-A2777C15AF19}
+	EndGlobalSection
+EndGlobal
